@@ -6,7 +6,8 @@
     background-color: rgb(237, 237, 237);
     width: 50%;
     margin-left: 25%;
-    border: 1px solid gray;
+    padding-bottom: 30px;
+    border: none;
 }
 
 h1 {
@@ -106,4 +107,33 @@ label {
     opacity: 0.2;
     font-size: xx-large;
     z-index: 1;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    height: 45px;
+    border: none;
+    border-bottom: 1px solid rgb(216, 216, 216);
+    background-color: white;
+    margin: auto;
+}
+
+.filters button {
+    background-color: white;
+    border: 1px solid white;
+    height: 70%;
+    margin: 1%;
+}
+
+.filters .toggledBtn {
+    border: 1px solid rgb(227, 201, 206);
+    border-radius: 3px;
+}
+
+.filterBtn:hover {
+    border: 1px solid rgb(227, 201, 206);
+    border-radius: 3px;
 }

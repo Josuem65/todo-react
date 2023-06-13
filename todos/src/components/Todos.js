@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useTodo } from '../hooks'
 
-
 function InputTodos(props) {
   const { setTodo } = useTodo([])
   const [ currentValue, setCurrentValue ] = useState('')
@@ -25,24 +24,31 @@ function InputTodos(props) {
     )
 }
 
-
 function TodoList() {
-  // const list = useSelector((state) => state.todosState.todos)
-  const { todosLi, setCompleteSatus, setRemoveItem } = useTodo([])
-
+  const { todosLi, active, completed, setCompleteSatus, setRemoveItem } = useTodo([])
+  let filter = []
   function handleChange(item) {
-    setCompleteSatus(item.id)
+    setCompleteSatus(item)
   }
 
   function handleClick(item) {
-    setRemoveItem(item.id)
+    setRemoveItem(item)
   }
 
-  console.log(todosLi)
-
+  if(active) {
+    filter = todosLi.filter((item) => {
+      return item.completed ? null : item
+    })
+  }else if(completed) {
+    filter = todosLi.filter((item) => {
+      return item.completed ? item : null
+    })
+  } else {
+    filter = todosLi
+  }
     return (
           <ul className="ulDiv">
-            {todosLi.map((item, index) => {
+            {filter.map((item, index) => {
               console.log(item.text)
               return (    
                  <li key={item.id} className="eachItem">
@@ -57,11 +63,13 @@ function TodoList() {
 } 
 
 function Filters() {
+const { active, completed, setActive, setComplete, setClearFilters } = useTodo([])
+
   return (
     <div className="filters">
-      <button>All</button>
-      <button>Active</button>
-      <button>Completed</button>
+      <button className={!active && !completed ? "filterBtn toggledBtn" : "filterBtn"} onClick={setClearFilters}>All</button>
+      <button className={active ? "filterBtn toggledBtn" : "filterBtn"} onClick={setActive}>Active</button>
+      <button className={completed ? "filterBtn toggledBtn" : "filterBtn"} onClick={setComplete}>Completed</button>  
     </div>
   )
 }
